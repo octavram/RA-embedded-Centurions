@@ -27,7 +27,7 @@ int main(void) {
   *(PCC_PORT_D) |= PCC_ENABLE_PORT_MASK;
 
   // 2) Pin Direction
-  (((GPIO_map_tp) PORT_C)->PDDR) &= ~((1<<12U)|(1<<13));
+  (((GPIO_map_tp) PORT_C)->PDDR) &= ~(BTN_1 | BTN_0);
   (((GPIO_map_tp) PORT_D)->PDDR) |= LED_RED | LED_BLUE | LED_GREEN;
 
   // 3) Port function
@@ -40,17 +40,17 @@ int main(void) {
 
   for(;;) {
 
-	  if(((((GPIO_map_tp) PORT_C)->PDIR) & (1<<12)) && ((((GPIO_map_tp) PORT_C)->PDIR) & (1<<13)))
+	  if(((((GPIO_map_tp) PORT_C)->PDIR) & BTN_1) && ((((GPIO_map_tp) PORT_C)->PDIR) & BTN_0))
 	  {
 		  ((GPIO_map_tp) PORT_D)->PSOR |= LED_RED | LED_GREEN;
 		  ((GPIO_map_tp) PORT_D)->PCOR |= LED_BLUE;
 	  }
-	  else if ((((GPIO_map_tp) PORT_C)->PDIR) & (1<<13))
+	  else if ((((GPIO_map_tp) PORT_C)->PDIR) & BTN_0)
 	  {
 		  ((GPIO_map_tp) PORT_D)->PSOR |= LED_RED | LED_BLUE ;
 		  ((GPIO_map_tp) PORT_D)->PCOR |= LED_GREEN;
 	  }
-	  else if ((((GPIO_map_tp) PORT_C)->PDIR) & (1<<12))
+	  else if ((((GPIO_map_tp) PORT_C)->PDIR) & BTN_1)
 	  {
 		  ((GPIO_map_tp) PORT_D)->PSOR |=  LED_BLUE | LED_GREEN;
 		  ((GPIO_map_tp) PORT_D)->PCOR |= LED_RED;
